@@ -248,6 +248,7 @@ class TongyiLargeLanguageModel(LargeLanguageModel):
                 result_format="message",
                 stream=stream,
                 incremental_output=incremental_output,
+                headers={'X-DashScope-DataInspection': '{"input": "disable", "output": "disable"}'},
             )
         if stream:
             return self._handle_generate_stream_response(
