@@ -1,4 +1,4 @@
-# https://ai.google.dev/gemini-api/docs/models?hl=zh-cn#gemini-3-pro
+# https://ai.google.dev/gemini-api/docs/models/gemini-3-pro-preview
 model: gemini-3-pro-preview
 label:
   en_US: Gemini 3 Pro Preview
@@ -12,12 +12,13 @@ features:
   - document
   - video
   - audio
+  - structured-output
 model_properties:
   mode: chat
   context_size: 1048576
-# Documentation: https://ai.google.dev/gemini-api/docs/gemini-3?hl=zh-cn
 parameter_rules:
   - name: temperature
+    use_template: temperature
     type: float
     required: true
     default: 1
@@ -29,6 +30,9 @@ parameter_rules:
     help:
       en_US: For Gemini 3, best results at default 1.0. Lower values may impact reasoning.
       zh_Hans: 对于 Gemini 3，使用默认值 1.0 可获得最佳效果。数值过低可能会影响推理能力。
+  - name: top_p
+    use_template: top_p
+    default: 0.95
   - name: include_thoughts
     type: boolean
     required: true
@@ -96,7 +100,7 @@ parameter_rules:
     help:
       en_US: Grounding with Google Search
       zh_Hans: Google 事实核查
-      ja_JP: Google検索に基づいた応答をします。
+      ja_JP: Google 検索に基づいた応答をします。
   - name: url_context
     type: boolean
     required: true
@@ -122,7 +126,8 @@ parameter_rules:
       zh_Hans: 让 Gemini 使用代码来解决复杂任务。
       ja_JP: Gemini にコードを使って複雑なタスクを解決させましょう。
   - name: max_output_tokens
-    type: float
+    use_template: max_tokens
+    type: int
     required: true
     default: 65536
     min: 1
@@ -133,6 +138,8 @@ parameter_rules:
     help:
       en_US: The maximum number of tokens to generate in the response.
       zh_Hans: 模型单次输出的最大 tokens 数。
+  - name: json_schema
+    use_template: json_schema
 # https://ai.google.dev/gemini-api/docs/pricing#gemini-3-pro-preview
 pricing:
   # prompts <= 200k tokens
@@ -140,3 +147,4 @@ pricing:
   output: '12.00'
   unit: '0.000001'
   currency: USD
+deprecated: true
